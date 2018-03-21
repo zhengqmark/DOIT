@@ -1,9 +1,10 @@
 #!/bin/bash
 
 # In this part we investigate the performance of our code on KNL cores.
+# We skip all reads. We drop all data.
 
 # We keep the IO speed fixed at 5.33GiB/s per 32 compute nodes,
-# or 5.33MiB/s per core. We don’t drop data.
+# or 5.33MiB/s per core.
 
 for r in 3; do
 # 1 sender per receiver
