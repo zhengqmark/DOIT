@@ -8,7 +8,7 @@
 for r in 3; do
 # 1 sender per receiver
 std="--partition knl --constraints knl,snc4,flat --experiment sc18k --iterations 1 \
---overcommit enable --tag rc34-knl-1v1 --tests deltafs --skipreads \
+--overcommit enable --core-spec 4 --tag rc34-knl-1v1 --tests deltafs --skipreads \
 --env XX_IGNORE_DIRS=fields:hydro:rundata:names \
 --env XX_SKIP_SAMP=1 \
 --env XX_SH_THREE_HOP=0 \
@@ -30,7 +30,7 @@ eval ../vpicexpt_gen.pl ${std} --run $r --dw bw .
 
 # 2 senders per receiver
 std="--partition knl --constraints knl,snc4,flat --experiment sc18k --iterations 1 \
---overcommit enable --tag rc34-knl-2v1 --tests deltafs --skipreads \
+--overcommit enable --core-spec 4 --tag rc34-knl-2v1 --tests deltafs --skipreads \
 --env XX_IGNORE_DIRS=fields:hydro:rundata:names \
 --env XX_SKIP_SAMP=1 \
 --env XX_SH_THREE_HOP=0 \
@@ -52,7 +52,7 @@ eval ../vpicexpt_gen.pl ${std} --run $r --dw bw .
 
 # 4 senders per receiver
 std="--partition knl --constraints knl,snc4,flat --experiment sc18k --iterations 1 \
---overcommit enable --tag rc34-knl-4v1 --tests deltafs --skipreads \
+--overcommit enable --core-spec 4 --tag rc34-knl-4v1 --tests deltafs --skipreads \
 --env XX_IGNORE_DIRS=fields:hydro:rundata:names \
 --env XX_SKIP_SAMP=1 \
 --env XX_SH_THREE_HOP=0 \
