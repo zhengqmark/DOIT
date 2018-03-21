@@ -1,0 +1,75 @@
+#!/bin/bash
+
+# In this part we investigate the performance of our code on KNL cores.
+
+# We keep the IO speed fixed at 5.33GiB/s per 32 compute nodes,
+# or 5.33MiB/s per core. We don’t drop data.
+
+for r in 3; do
+# 1 sender per receiver
+std="--partition knl --constraints knl,snc4,flat --experiment sc18k --iterations 1 \
+--overcommit enable --tag rc34-knl-1v1 --tests deltafs --skipreads \
+--env XX_IGNORE_DIRS=fields:hydro:rundata:names \
+--env XX_SKIP_SAMP=1 \
+--env XX_SH_THREE_HOP=0 \
+--env XX_HG_PROTO=bmi+tcp \
+--env XX_ALWAYS_SHUFFLE=0 \
+--env XX_BYPASS_CH=1 \
+--env XX_BG_SNGCOMP=1 \
+--env XX_RECV_RADIX=0 \
+--env XX_MEMTABLE_SIZE=24MiB \
+--env XX_COMP_BUF=2MiB \
+--env XX_MAX_DATA_BUF=4MiB \
+--env XX_MIN_DATA_BUF=3MiB \
+--env XX_LG_PARTS=1 \
+--env XX_IMD_RATELIMIT=5588910 \
+--env XX_IMD_DROPDATA=1 \
+--env XX_BF_BITS=12"
+
+eval ../vpicexpt_gen.pl ${std} --run $r --dw bw .
+
+# 2 senders per receiver
+std="--partition knl --constraints knl,snc4,flat --experiment sc18k --iterations 1 \
+--overcommit enable --tag rc34-knl-2v1 --tests deltafs --skipreads \
+--env XX_IGNORE_DIRS=fields:hydro:rundata:names \
+--env XX_SKIP_SAMP=1 \
+--env XX_SH_THREE_HOP=0 \
+--env XX_HG_PROTO=bmi+tcp \
+--env XX_ALWAYS_SHUFFLE=0 \
+--env XX_BYPASS_CH=1 \
+--env XX_BG_SNGCOMP=1 \
+--env XX_RECV_RADIX=1 \
+--env XX_MEMTABLE_SIZE=48MiB \
+--env XX_COMP_BUF=4MiB \
+--env XX_MAX_DATA_BUF=8MiB \
+--env XX_MIN_DATA_BUF=6MiB \
+--env XX_LG_PARTS=2 \
+--env XX_IMD_RATELIMIT=5588910 \
+--env XX_IMD_DROPDATA=1 \
+--env XX_BF_BITS=12"
+
+eval ../vpicexpt_gen.pl ${std} --run $r --dw bw .
+
+# 4 senders per receiver
+std="--partition knl --constraints knl,snc4,flat --experiment sc18k --iterations 1 \
+--overcommit enable --tag rc34-knl-4v1 --tests deltafs --skipreads \
+--env XX_IGNORE_DIRS=fields:hydro:rundata:names \
+--env XX_SKIP_SAMP=1 \
+--env XX_SH_THREE_HOP=0 \
+--env XX_HG_PROTO=bmi+tcp \
+--env XX_ALWAYS_SHUFFLE=0 \
+--env XX_BYPASS_CH=1 \
+--env XX_BG_SNGCOMP=1 \
+--env XX_RECV_RADIX=2 \
+--env XX_MEMTABLE_SIZE=96MiB \
+--env XX_COMP_BUF=8MiB \
+--env XX_MAX_DATA_BUF=8MiB \
+--env XX_MIN_DATA_BUF=6MiB \
+--env XX_LG_PARTS=3 \
+--env XX_IMD_RATELIMIT=5588910 \
+--env XX_IMD_DROPDATA=1 \
+--env XX_BF_BITS=12"
+
+eval ../vpicexpt_gen.pl ${std} --run $r --dw bw .
+
+done
