@@ -11,6 +11,7 @@ std="--constraints haswell --experiment sc18d --iterations 1 \
 --overcommit enable --tag rc34-try2-3hop-bmionly --tests deltafs \
 --env XX_IGNORE_DIRS=fields:hydro:rundata:names \
 --env XX_SKIP_SAMP=0 \
+--env XX_SH_LOG_FILE=1 \
 --env XX_SH_THREE_HOP=1 \
 --env XX_HG_PROTO=bmi+tcp \
 --env XX_ALWAYS_SHUFFLE=1 \
