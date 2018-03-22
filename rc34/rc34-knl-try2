@@ -23,7 +23,7 @@ std="--partition knl --constraints knl,snc4,flat --experiment sc18l --iterations
 --env XX_MAX_DATA_BUF=4MiB \
 --env XX_MIN_DATA_BUF=3MiB \
 --env XX_LG_PARTS=1 \
---env XX_IMD_RATELIMIT=5588910 \
+--env XX_IMD_RATELIMIT=2794455 \
 --env XX_IMD_DROPDATA=1 \
 --env XX_BF_BITS=12"
 
@@ -67,7 +67,7 @@ std="--partition knl --constraints knl,snc4,flat --experiment sc18l --iterations
 --env XX_MAX_DATA_BUF=8MiB \
 --env XX_MIN_DATA_BUF=6MiB \
 --env XX_LG_PARTS=3 \
---env XX_IMD_RATELIMIT=5588910 \
+--env XX_IMD_RATELIMIT=11177820 \
 --env XX_IMD_DROPDATA=1 \
 --env XX_BF_BITS=12"
 
