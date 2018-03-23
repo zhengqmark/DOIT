@@ -10,7 +10,7 @@
 for r in 7 8; do
 # nosh
 std="--constraints haswell --experiment sc18d --iterations 1 \
---overcommit enable --tag rc35-nosh --tests deltafs \
+--overcommit enable --tag rc35-try1-nosh --tests deltafs \
 --env XX_IGNORE_DIRS=fields:hydro:rundata:names \
 --env XX_SKIP_SAMP=0 \
 --env XX_BYPASS_SHUFFLE=1 \
@@ -23,7 +23,7 @@ eval ../vpicexpt_gen.pl ${std} --run $r --dw bw .
 
 # 1-hop
 std="--constraints haswell --experiment sc18d --iterations 1 \
---overcommit enable --tag rc35-1hop --tests deltafs \
+--overcommit enable --tag rc35-try1-1hop --tests deltafs \
 --env XX_IGNORE_DIRS=fields:hydro:rundata:names \
 --env XX_SKIP_SAMP=0 \
 --env XX_SH_THREE_HOP=0 \
@@ -38,7 +38,7 @@ eval ../vpicexpt_gen.pl ${std} --run $r --dw bw .
 
 # 3-hop
 std="--constraints haswell --experiment sc18d --iterations 1 \
---overcommit enable --tag rc353hop --tests deltafs \
+--overcommit enable --tag rc35-try1-3hop-nobind --tests deltafs \
 --env XX_IGNORE_DIRS=fields:hydro:rundata:names \
 --env XX_SKIP_SAMP=0 \
 --env XX_SH_THREE_HOP=1 \
@@ -49,6 +49,6 @@ std="--constraints haswell --experiment sc18d --iterations 1 \
 --env XX_IMD_DROPDATA=0 \
 --env XX_BF_BITS=12"
 
-eval ../vpicexpt_gen.pl ${std} --run $r --dw bw .
+eval ../vpicexpt_gen.pl ${std} --extraopts "--cpu_bind=none" --run $r --dw bw .
 
 done
