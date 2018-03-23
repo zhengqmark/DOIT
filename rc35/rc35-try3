@@ -16,7 +16,7 @@ std="--constraints haswell --experiment sc18d --iterations 1 \
 --env XX_HG_PROTO=bmi+tcp \
 --env XX_ALWAYS_SHUFFLE=1 \
 --env XX_BYPASS_CH=1 \
---env XX_NX_ONEHG \
+--env XX_NX_ONEHG=1 \
 --env XX_IMD_RATELIMIT=5588910 \
 --env XX_IMD_DROPDATA=1 \
 --env XX_BF_BITS=12"
