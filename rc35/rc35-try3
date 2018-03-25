@@ -4,7 +4,7 @@
 # and show an inefficient impl.
 
 # We keep the IO speed fixed at 5.33GiB/s per 32 compute nodes,
-# or 5.33MiB/s per core. We don’t drop data.
+# or 5.33MiB/s per core.
 
 for r in 1 3 4 5 6; do
 std="--constraints haswell --experiment sc18d --iterations 1 \

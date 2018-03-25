@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# In this part we do a pass of rate-limiting data-dropping 1-hop runs
+# with 16 processes per node.
+
+# We keep the IO speed fixed at 5.33GiB/s per 32 compute nodes,
+# or 5.33MiB/s per core.
+
+for r in 1 2 3 4 5 6; do
+std="--constraints haswell --experiment sc18f --iterations 1 \
+--overcommit enable --tag rc35-try6 --tests deltafs --skipreads \
+--env XX_IGNORE_DIRS=fields:hydro:rundata:names \
+--env XX_SKIP_SAMP=1 \
+--env XX_SH_THREE_HOP=0 \
+--env XX_HG_PROTO=bmi+tcp \
+--env XX_ALWAYS_SHUFFLE=0 \
+--env XX_BYPASS_CH=1 \
+--env XX_MEMTABLE_SIZE=96MiB \
+--env XX_LG_PARTS=3 \
+--env XX_IMD_RATELIMIT=11177820 \
+--env XX_IMD_DROPDATA=1 \
+--env XX_BF_BITS=12"
+
+eval ../vpicexpt_gen.pl ${std} --extraopts "-c 4" --run $r --dw bw .
+
+done
