@@ -1,0 +1,39 @@
+#!/bin/bash
+
+# In this part we redo the PDSW17 exp using the new deltafs rc38 1-hop code.
+
+# We keep the IO speed fixed at 5.33GiB/s per 32 compute nodes,
+# or 5.33MiB/s per core. We don’t drop data.
+
+for r in 6; do
+# deltafs w/ memtable sort
+std="--constraints haswell --experiment sc18c --iterations 1 \
+--overcommit enable --tag rc38-try2-sorted --tests deltafs \
+--env XX_IGNORE_DIRS=fields:hydro:rundata:names \
+--env XX_SKIP_SAMP=0 \
+--env XX_SKIP_SORT=0 \
+--env XX_IMD_RATELIMIT=5588910 \
+--env XX_SH_THREE_HOP=0 \
+--env XX_HG_PROTO=bmi+tcp \
+--env XX_ALWAYS_SHUFFLE=0 \
+--env XX_BYPASS_CH=1"
+
+eval ../vpicexpt_gen.pl ${std} --run $r --dw bw .
+
+# deltafs w/o memtable sort
+std="--constraints haswell --experiment sc18c --iterations 1 \
+--overcommit enable --tag rc38-try2-unsorted --tests deltafs \
+--env XX_IGNORE_DIRS=fields:hydro:rundata:names \
+--env XX_SKIP_SAMP=0 \
+--env XX_SKIP_SORT=1 \
+--env XX_IMD_RATELIMIT=5588910 \
+--env XX_SH_THREE_HOP=0 \
+--env XX_HG_PROTO=bmi+tcp \
+--env XX_ALWAYS_SHUFFLE=0 \
+--env XX_BYPASS_CH=1"
+
+eval ../vpicexpt_gen.pl ${std} --run $r --dw bw .
+
+done
+
+exit 0
