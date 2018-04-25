@@ -1,1 +1,24 @@
-# TODO
+#!/bin/bash
+
+# In this part we redo the PDSW17 exp using the new deltafs rc39 1-hop code
+# without over-allocating and then throttling the burst-buffer storage.
+
+# ALL RUNS ARE DESIGNED TO USE 1 BB NODE
+
+for r in 6; do
+# deltafs w/o memtable sort
+std="--constraints haswell --experiment sc18w --iterations 1 \
+--overcommit enable --tag rc39-try1-unsorted --tests deltafs --skipreads \
+--env XX_IGNORE_DIRS=fields:hydro:rundata:names \
+--env XX_SKIP_SAMP=1 \
+--env XX_SKIP_SORT=1 \
+--env XX_SH_THREE_HOP=0 \
+--env XX_HG_PROTO=bmi+tcp \
+--env XX_ALWAYS_SHUFFLE=0 \
+--env XX_BYPASS_CH=1"
+
+eval ../vpicexpt_gen.pl ${std} --run $r --dw int .
+
+done
+
+exit 0
