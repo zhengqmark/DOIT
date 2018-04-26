@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# In this part we do the vpic exp using the new deltafs rc40 1-hop code.
+
+# We keep the IO speed fixed at 5.33GiB/s per 32 compute nodes,
+# or 5.33MiB/s per core. We don’t drop data.
+
+for r in 6; do
+# deltafs w/o memtable sort
+std="--constraints haswell --experiment sc18d --iterations 1 \
+--overcommit enable --tag rc40-try1-unsorted --tests deltafs --skipreads \
+--env XX_IGNORE_DIRS=fields:hydro:rundata:names \
+--env XX_SKIP_SAMP=1 \
+--env XX_SKIP_SORT=1 \
+--env XX_NO_PRE_FLUSH=0 \
+--env XX_NO_PRE_FLUSH_WAIT=0 \
+--env XX_NO_PRE_FLUSH_SYNC=0 \
+--env XX_IMD_RATELIMIT=5588910 \
+--env XX_BG_PAUSE=1 \
+--env XX_SH_THREE_HOP=0 \
+--env XX_HG_PROTO=bmi+tcp \
+--env XX_ALWAYS_SHUFFLE=0 \
+--env XX_BYPASS_CH=1"
+
+eval ../vpicexpt_gen.pl ${std} --run $r --dw bw .
+
+done
+
+exit 0
