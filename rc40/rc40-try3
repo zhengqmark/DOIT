@@ -22,7 +22,7 @@ std="--constraints haswell --experiment sc18d --iterations 1 \
 --env XX_ALWAYS_SHUFFLE=1 \
 --env XX_BYPASS_CH=1"
 
-eval ../vpicexpt_gen.pl ${std} --run $r --dw bw .
+eval ../vpicexpt_gen.pl ${std} --extraopts "--cpu_bind=none" --run $r --dw bw .
 
 done
 
