@@ -1,14 +1,17 @@
 #!/bin/bash
 
 # In this part we do the vpic exp using the new deltafs rc40 3-hop code.
-
+#
 # We keep the IO speed fixed at 5.33GiB/s per 32 compute nodes,
 # or 5.33MiB/s per core. We don’t drop data.
+#
+# CPU BINDINGs is NONE
+#
 
-for r in 1 2 3 4 5 6; do
+for r in 1 2 3 4 5 6 7 8; do
 # deltafs w/o memtable sort
 std="--constraints haswell --experiment sc18d --iterations 1 \
---overcommit enable --tag rc40-try3-3hop-unsorted --tests deltafs --skipreads \
+--overcommit enable --tag rc40-try5-3hop-unsorted-bindtonone --tests deltafs --skipreads \
 --env XX_IGNORE_DIRS=fields:hydro:rundata:names \
 --env XX_SKIP_SAMP=1 \
 --env XX_SKIP_SORT=1 \
@@ -22,7 +25,7 @@ std="--constraints haswell --experiment sc18d --iterations 1 \
 --env XX_ALWAYS_SHUFFLE=1 \
 --env XX_BYPASS_CH=1"
 
-eval ../vpicexpt_gen.pl ${std} --run $r --dw bw .
+eval ../vpicexpt_gen.pl ${std} --extraopts "--cpu_bind=none" --run $r --dw bw .
 
 done
 
