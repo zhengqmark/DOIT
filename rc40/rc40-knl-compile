@@ -1,0 +1,21 @@
+#!/bin/bash
+
+export CRAYPE_LINK_TYPE="dynamic"
+export CRAYOS_VERSION=6
+
+module unload craype-hugepages2M
+
+module load craype-mic-knl
+module load PrgEnv-intel
+module load cmake
+
+env CC=cc CXX=CC cmake \
+-DCMAKE_INSTALL_PREFIX=/users/ccranor/may18/r40k \
+-DCMAKE_BUILD_TYPE=RelWithDebInfo \
+-DMERCURY_NA_INITIALLY_ON="bmi;sm" \
+-DMERCURY_POST_LIMIT=OFF \
+-DMERCURY_CHECKSUM=ON \
+-DUMBRELLA_SKIP_TESTS=ON \
+..
+
+exit 0
