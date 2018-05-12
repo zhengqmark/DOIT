@@ -1,0 +1,34 @@
+#!/bin/bash
+
+# In this part we do the vpic exp using the new deltafs rc40 no-shuffle code
+# on KNL processors.
+
+# We keep the IO speed fixed at 5.33GiB/s per 32 compute nodes,
+# or 5.33MiB/s per core. We don’t drop data.
+
+for r in 1 2 3 4 5 6; do
+# deltafs w/o memtable sort, 2 senders per receiver
+std="--partition knl --constraints knl,snc4,flat --experiment sc18l --iterations 1 \
+--overcommit enable --core-spec 4 --tag rc40-knl-try2-nosh-unsorted --tests deltafs --skipreads \
+--env XX_IGNORE_DIRS=fields:hydro:rundata:names \
+--env XX_SKIP_SAMP=1 \
+--env XX_SKIP_SORT=1 \
+--env XX_NO_PRE_FLUSH=0 \
+--env XX_NO_PRE_FLUSH_WAIT=0 \
+--env XX_NO_PRE_FLUSH_SYNC=0 \
+--env XX_MEMTABLE_SIZE=24MiB \
+--env XX_COMP_BUF=2MiB \
+--env XX_MAX_INDEX_BUF=1MiB \
+--env XX_MIN_INDEX_BUF=1MiB \
+--env XX_MAX_DATA_BUF=4MiB \
+--env XX_MIN_DATA_BUF=3MiB \
+--env XX_IMD_RATELIMIT=2794455 \
+--env XX_BG_PAUSE=1 \
+--env XX_BYPASS_SHUFFLE=1 \
+--env XX_BYPASS_CH=1"
+
+eval ../vpicexpt_gen.pl ${std} --run $r --dw bw .
+
+done
+
+exit 0
