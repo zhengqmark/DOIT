@@ -3,8 +3,8 @@
 # In this part we do the vpic exp using the new deltafs rc40 no-shuffle code
 # on KNL processors.
 
-# We keep the IO speed fixed at 5.33GiB/s per 32 compute nodes,
-# or 5.33MiB/s per core. We don’t drop data.
+# We keep the IO speed fixed at 5.33GiB/s per 32 KNL nodes,
+# or 2.67MiB/s per KNL core. We don’t drop data.
 
 for r in 1 2 3 4 5 6; do
 # deltafs w/o memtable sort, 2 senders per receiver
