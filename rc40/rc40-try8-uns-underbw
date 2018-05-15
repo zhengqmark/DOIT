@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# Test different underlying B/W. 1-hop code.
+
+# We compare two rate: 8GiB/s per 32 compute nodes and 3GiB/s per 32 compute nodes.
+# We don’t drop data.
+
+for rate in 8388608 3145728; do
+for r in 1 2 3 4 5 6; do
+# deltafs w/o memtable sort
+std="--constraints haswell --experiment sc18d --iterations 1 \
+--overcommit enable --tag rc40-try8-unsorted-$(($rate/1024/1024))mb --tests deltafs --skipreads \
+--env XX_IGNORE_DIRS=fields:hydro:rundata:names \
+--env XX_SKIP_SAMP=1 \
+--env XX_SKIP_SORT=1 \
+--env XX_NO_PRE_FLUSH=0 \
+--env XX_NO_PRE_FLUSH_WAIT=0 \
+--env XX_NO_PRE_FLUSH_SYNC=0 \
+--env XX_IMD_RATELIMIT=$rate \
+--env XX_BG_PAUSE=1 \
+--env XX_SH_THREE_HOP=0 \
+--env XX_HG_PROTO=bmi+tcp \
+--env XX_ALWAYS_SHUFFLE=0 \
+--env XX_BYPASS_CH=1"
+
+eval ../vpicexpt_gen.pl ${std} --run $r --dw bw .
+
+done
+done
+
+exit 0
