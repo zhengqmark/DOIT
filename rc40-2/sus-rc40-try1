@@ -1,0 +1,29 @@
+#!/bin/bash
+
+for r in 1 2 3 4 5 6; do
+
+# deltafs w/o memtable sort
+std="--experiment sc18s --iterations 1 --ipsubnet 10.53 \
+--tag rc40-try1-unsorted --tests deltafs --skipreads \
+--env VPIC_PRE= \
+--env VPIC_EMU=preload-runner \
+--env 'VPIC_EMU_OPTS=-t 1800' \
+--env XX_IGNORE_DIRS=fields:hydro:rundata:names \
+--env XX_SKIP_SAMP=1 \
+--env XX_SKIP_SORT=1 \
+--env XX_NO_PRE_FLUSH=0 \
+--env XX_NO_PRE_FLUSH_WAIT=0 \
+--env XX_NO_PRE_FLUSH_SYNC=0 \
+--env XX_IMD_RATELIMIT=$((5588910 * (2 ** (6 - $r)))) \
+--env XX_IMD_DROPDATA=1 \
+--env XX_BG_PAUSE=1 \
+--env XX_SH_THREE_HOP=0 \
+--env XX_HG_PROTO=bmi+tcp \
+--env XX_ALWAYS_SHUFFLE=0 \
+--env XX_BYPASS_CH=1"
+
+eval ../vpicexpt_gen.pl --addrunopts '-iface=fge0' --extraopts '-bind-to=core:2' ${std} --run $r .
+
+done
+
+exit 0
