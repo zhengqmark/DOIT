@@ -23,7 +23,10 @@ std="--partition knl --constraints knl,snc4,flat --experiment sc18l --iterations
 --env XX_HG_PROTO=bmi+tcp \
 --env XX_ALWAYS_SHUFFLE=0 \
 --env XX_RPC_BUF=$(($sz*1024)) \
---env XX_BYPASS_CH=1"
+--env XX_BYPASS_CH=1  \
+--env 'VPIC_EMU_OPTS=-t 3600' \
+--env 'VPIC_EMU=preload-runner' \
+--env 'VPIC_PRE='"
 
 eval ../vpicexpt_gen.pl ${std} --run $r --dw bw .
 
