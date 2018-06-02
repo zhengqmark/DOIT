@@ -6,7 +6,7 @@
 # We keep the IO speed fixed at 5.33GiB/s per 32 KNL nodes,
 # or 2.67MiB/s per KNL core. We don’t drop data.
 
-for sz in 32 64 128; do
+for sz in 32 64 128 256; do
 for r in 6; do
 # deltafs w/o memtable sort, full receiver
 std="--partition knl --constraints knl,snc4,flat --experiment sc18l --iterations 1 \
