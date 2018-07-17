@@ -1,0 +1,43 @@
+#!/bin/bash
+
+# This is to perform a full-stack deltafs run
+# using the 1-hop code on KNL nodes.
+
+# We vary the size of each particle to check its impact on performance.
+
+# We keep the IO speed fixed at 5.33GiB/s per 32 KNL nodes,
+# or 2.67MiB/s per KNL core. We drop all data.
+
+# Fixed 48MB memtable per receiver.
+
+for p in 0 40 80; do
+for r in 6; do
+# deltafs w/o memtable sort, 2 senders per receiver
+std="--partition knl --constraints knl,snc4,flat --experiment sc18l --iterations 1 \
+--overcommit enable --core-spec 4 --tag rc42-knl-try2-u-${p}b --tests deltafs --skipreads \
+--env XX_IGNORE_DIRS=fields:hydro:rundata:names \
+--env XX_SKIP_SAMP=1 \
+--env XX_SKIP_SORT=1 \
+--env XX_NO_PRE_FLUSH=0 \
+--env XX_NO_PRE_FLUSH_WAIT=0 \
+--env XX_NO_PRE_FLUSH_SYNC=0 \
+--env XX_IMD_RATELIMIT=$((2794455*2)) \
+--env XX_IMD_DROPDATA=1 \
+--env XX_BG_PAUSE=1 \
+--env XX_SH_THREE_HOP=0 \
+--env XX_HG_PROTO=bmi+tcp \
+--env XX_ALWAYS_SHUFFLE=0 \
+--env XX_RPC_BUF=$((128*1024)) \
+--env XX_RECV_RADIX=1 \
+--env XX_BYPASS_CH=1  \
+--env XX_VALUE_SIZE=$p \
+--env 'VPIC_EMU_OPTS=-t 3600' \
+--env 'VPIC_EMU=preload-runner' \
+--env 'VPIC_PRE='"
+
+eval ../vpicexpt_gen.pl ${std} --run $r --dw off .
+
+done
+done
+
+exit 0
