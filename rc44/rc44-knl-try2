@@ -18,6 +18,7 @@ for r in 6; do
 # deltafs w/o memtable sort, variable senders per receiver
 std="--partition knl --constraints knl,quad,flat --experiment sc18l --iterations 1 \
 --overcommit disable --core-spec 4 --tag rc44-knl-try2-u-3hop-ddr4-128k-rx$rx --tests deltafs --skipreads \
+--extraopts '--cpu-bind=none --mem-bind=map_mem:0x0' \
 --env XX_IGNORE_DIRS=fields:hydro:rundata:names \
 --env XX_SKIP_SAMP=1 \
 --env XX_SKIP_SORT=1 \
@@ -37,7 +38,7 @@ std="--partition knl --constraints knl,quad,flat --experiment sc18l --iterations
 --env 'VPIC_EMU=preload-runner' \
 --env 'VPIC_PRE='"
 
-eval ../vpicexpt_gen.pl ${std} --extraopts "--cpu-bind=none --mem-bind=map_mem:0x0" --run $r --dw off .
+eval ../vpicexpt_gen.pl ${std} --run $r --dw off .
 
 done
 done
