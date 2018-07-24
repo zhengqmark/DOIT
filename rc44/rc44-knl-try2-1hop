@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# In this part we do the vpic exp using the deltafs rc44 3-hop code
+# In this part we do the vpic exp using the deltafs rc44 1-hop code
 # on KNL processors.
 
 # We keep the IO speed fixed at 5.33GiB/s per 32 KNL nodes,
