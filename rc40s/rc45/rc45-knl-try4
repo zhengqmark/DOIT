@@ -1,0 +1,49 @@
+#!/bin/bash
+
+# --------------------------------------------------
+#                        DDR4    HBM    HBM-CACHE
+# --------------------------------------------------
+#  no-shuffle (0-hop)            try4
+#  1-hop
+#  3-hop
+# --------------------------------------------------
+
+# We keep the IO speed fixed at 5.33GiB/s per 32 KNL nodes,
+# or 2.67MiB/s per KNL core. We drop all data.
+# We use fixed 24MB memtable.
+
+#   NOTE
+# -----------
+# quad,flat w/o CPU binding
+# no memory overcommit
+#
+
+std="--partition knl --constraints knl,quad,flat --experiment sc18l --iterations 1 \
+--overcommit disable --core-spec 4 --tag rc45-knl-try4-u-0hop-hbm --tests deltafs --skipreads \
+--extraopts '--cpu-bind=none --mem-bind=map_mem:0x1' \
+--env XX_IGNORE_DIRS=fields:hydro:rundata:names \
+--env XX_SKIP_SAMP=1 \
+--env XX_SKIP_SORT=1 \
+--env XX_NO_PRE_FLUSH=0 \
+--env XX_NO_PRE_FLUSH_WAIT=0 \
+--env XX_NO_PRE_FLUSH_SYNC=0 \
+--env XX_BG_PAUSE=1 \
+--env XX_BYPASS_SHUFFLE=1 \
+--env XX_BYPASS_CH=1  \
+--env XX_MEMTABLE_SIZE=24MiB \
+--env XX_COMP_BUF=2MiB \
+--env XX_MAX_DATA_BUF=4MiB \
+--env XX_MIN_DATA_BUF=3MiB \
+--env XX_MAX_INDEX_BUF=1MiB \
+--env XX_MIN_INDEX_BUF=1MiB \
+--env XX_IMD_RATELIMIT=$((2794455*1)) \
+--env XX_IMD_DROPDATA=1 \
+--env 'VPIC_EMU_OPTS=-t 3600' \
+--env 'VPIC_EMU=preload-runner' \
+--env 'VPIC_PRE='"
+
+for r in 6; do
+eval ../vpicexpt_gen.pl ${std} --run $r --dw off .
+done
+
+exit 0
