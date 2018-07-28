@@ -1,0 +1,43 @@
+#!/bin/bash
+
+# --------------------------------------------------
+#                        DDR4    HBM    HBM-CACHE
+# --------------------------------------------------
+#  no-shuffle (0-hop)
+#  1-hop                 try2
+#  3-hop
+# --------------------------------------------------
+
+#   NOTE
+# -----------
+# skip all writes
+# quad,flat w/o CPU binding
+# no memory overcommit
+# 64k rpc size
+#
+
+std="--partition knl --constraints knl,quad,flat --experiment pd18a --iterations 1 \
+--overcommit disable --core-spec 4 --tag rc45-knl-try2-d-1hop-ddr4-64k --tests deltafs --skipreads \
+--extraopts '--cpu-bind=none --mem-bind=map_mem:0x0' \
+--env XX_IGNORE_DIRS=fields:hydro:rundata:names \
+--env XX_SKIP_SAMP=1 \
+--env XX_SKIP_SORT=1 \
+--env XX_NO_PRE_FLUSH=0 \
+--env XX_NO_PRE_FLUSH_WAIT=0 \
+--env XX_NO_PRE_FLUSH_SYNC=0 \
+--env XX_BG_PAUSE=1 \
+--env XX_SH_THREE_HOP=0 \
+--env XX_HG_PROTO=bmi+tcp \
+--env XX_ALWAYS_SHUFFLE=0 \
+--env XX_RPC_BUF=$((64*1024)) \
+--env XX_BYPASS_CH=1  \
+--env XX_BYPASS_WRITE=1 \
+--env 'VPIC_EMU_OPTS=-t 3600' \
+--env 'VPIC_EMU=preload-runner' \
+--env 'VPIC_PRE='"
+
+for r in 1 2 3 4 5; do
+eval ../vpicexpt_gen.pl ${std} --run $r --dw off .
+done
+
+exit 0
