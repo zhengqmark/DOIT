@@ -5,7 +5,7 @@
 # We keep the IO speed fixed at 5.33GiB/s per 32 KNL nodes,
 # or 2.67MiB/s per KNL core. We drop all data.
 
-for sz in 32 64 128 256; do
+for sz in 8 16 32 64 128 256; do
 for r in 6; do
 
 std="--partition knl --constraints knl,quad,flat --experiment sc18l --iterations 1 \
