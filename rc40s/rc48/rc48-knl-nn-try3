@@ -3,7 +3,7 @@
 # In this part we evaluate the performance impact of rpc size.
 
 # We keep the IO speed fixed at 5.33GiB/s per 32 KNL nodes,
-# or 2.67MiB/s per KNL core. We drop all data.
+# or 2.5MiB/s per KNL core. We drop all data.
 
 for sz in 32 64 96 128; do
 for r in 3; do
