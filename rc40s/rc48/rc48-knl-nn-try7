@@ -8,8 +8,8 @@
 for r in 1 2 3 4 5 6; do
 
 std="--partition knl --constraints knl,quad,flat --experiment pd18x --iterations 1 \
---overcommit disable --tag rc48-knl-nn-u-quad-flat --tests deltafs --skipreads \
---extraopts '--cpu-bind=none --mem-bind=map_mem:0x0' \
+--overcommit disable --tag rc48-knl-nn-u-qf --tests deltafs --skipreads \
+--extraopts '--cpu-bind=none' \
 --env XX_IGNORE_DIRS=fields:hydro:rundata:names \
 --env XX_SKIP_SAMP=1 \
 --env XX_SKIP_SORT=1 \
