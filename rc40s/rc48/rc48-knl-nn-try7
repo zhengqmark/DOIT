@@ -1,0 +1,45 @@
+#!/bin/bash
+
+# Do a pass over KNL quad/flat
+
+# We keep the IO speed fixed at 5.33GiB/s per 32 KNL nodes,
+# or 2.5MiB/s per KNL core. We drop all data.
+
+for r in 1 2 3 4 5 6; do
+
+std="--partition knl --constraints knl,quad,flat --experiment pd18x --iterations 1 \
+--overcommit disable --tag rc48-knl-nn-u-quad-flat --tests deltafs --skipreads \
+--extraopts '--cpu-bind=none --mem-bind=map_mem:0x0' \
+--env XX_IGNORE_DIRS=fields:hydro:rundata:names \
+--env XX_SKIP_SAMP=1 \
+--env XX_SKIP_SORT=1 \
+--env XX_SKIP_PAPI=1 \
+--env XX_NO_PRE_FLUSH=0 \
+--env XX_NO_PRE_FLUSH_WAIT=0 \
+--env XX_NO_PRE_FLUSH_SYNC=0 \
+--env XX_BG_PAUSE=1 \
+--env XX_SH_THREE_HOP=0 \
+--env XX_HG_PROTO=bmi+tcp \
+--env XX_ALWAYS_SHUFFLE=0 \
+--env XX_RPC_BUF=$((32*1024)) \
+--env XX_RECV_RADIX=0 \
+--env XX_BYPASS_CH=1  \
+--env XX_MEMTABLE_SIZE=24MiB \
+--env XX_COMP_BUF=2MiB \
+--env XX_MAX_DATA_BUF=4MiB \
+--env XX_MIN_DATA_BUF=3MiB \
+--env XX_MAX_INDEX_BUF=1MiB \
+--env XX_MIN_INDEX_BUF=1MiB \
+--env XX_IMD_RATELIMIT=$((2630076*1)) \
+--env XX_IMD_DROPDATA=1 \
+--env XX_PARTICLE_ID_SIZE=11 \
+--env XX_PARTICLE_SIZE=40 \
+--env 'VPIC_EMU_OPTS=-t 7200' \
+--env 'VPIC_EMU=preload-runner' \
+--env 'VPIC_PRE='"
+
+eval ../vpicexpt_gen.pl ${std} --run $r --dw off .
+
+done
+
+exit 0
