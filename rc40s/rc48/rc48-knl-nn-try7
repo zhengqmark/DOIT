@@ -5,7 +5,7 @@
 # We keep the IO speed fixed at 5.33GiB/s per 32 KNL nodes,
 # or 2.5MiB/s per KNL core. We drop all data.
 
-for r in 1 2 3 4 5 6; do
+for r in 1 2 3 4 5 6 7; do
 
 std="--partition knl --constraints knl,quad,flat --experiment pd18x --iterations 1 \
 --overcommit disable --tag rc48-knl-nn-u-qf --tests deltafs --skipreads \
