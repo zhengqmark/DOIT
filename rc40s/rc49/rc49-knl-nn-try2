@@ -9,7 +9,7 @@ for sz in 32 64 96; do
 for r in 1 2 3 4 5 6 7; do
 
 std="--partition knl --constraints knl,quad,flat --experiment pd18x --iterations 1 \
---overcommit disable --tag rc49-knl-nn-u-randomflush-d2 --tests deltafs --skipreads \
+--overcommit disable --tag rc49-knl-nn-u-randomflush-d2-${sz}k --tests deltafs --skipreads \
 --extraopts '--cpu-bind=none --mem-bind=map_mem:0x0' \
 --env XX_IGNORE_DIRS=fields:hydro:rundata:names \
 --env XX_SKIP_SAMP=1 \
