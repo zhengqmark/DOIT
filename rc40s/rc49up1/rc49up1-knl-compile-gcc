@@ -12,7 +12,7 @@ module load cmake
 env CC=cc CXX=CC cmake \
 -DCMAKE_SYSTEM_NAME=CrayLinuxEnvironment \
 -DCMAKE_PREFIX_PATH="$PAT_BUILD_PAPI_BASEDIR" \
--DCMAKE_INSTALL_PREFIX=/users/ccranor/sep18/r49up1kg \
+-DCMAKE_INSTALL_PREFIX=/users/ccranor/sep18/r49u1kg \
 -DCMAKE_BUILD_TYPE=RelWithDebInfo \
 -DMERCURY_POST_LIMIT=OFF \
 -DMERCURY_CHECKSUM=OFF \
