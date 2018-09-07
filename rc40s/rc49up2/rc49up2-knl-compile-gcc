@@ -1,0 +1,25 @@
+#!/bin/bash
+
+export CRAYPE_LINK_TYPE="dynamic"
+export CRAYOS_VERSION=6
+
+module unload craype-hugepages2M
+
+module load craype-mic-knl
+module load PrgEnv-gnu
+module load cmake
+
+env CC=cc CXX=CC cmake \
+-DCMAKE_SYSTEM_NAME=CrayLinuxEnvironment \
+-DCMAKE_PREFIX_PATH="$PAT_BUILD_PAPI_BASEDIR" \
+-DCMAKE_INSTALL_PREFIX=/users/ccranor/sep18/r49u2kg \
+-DCMAKE_BUILD_TYPE=RelWithDebInfo \
+-DMERCURY_POST_LIMIT=OFF \
+-DMERCURY_CHECKSUM=OFF \
+-DMERCURY_NA_INITIALLY_ON="bmi;sm;ofi" \
+-DUMBRELLA_SKIP_TESTS=ON \
+..
+
+make
+
+exit 0
