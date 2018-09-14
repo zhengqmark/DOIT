@@ -7,7 +7,7 @@ for r in 1 2 3; do
 
 std="--partition knl --constraints knl,quad,flat --experiment pd18b --iterations 1 \
 --overcommit disable --tag rc49up2-knl-nn-weakscaling-${freq}khz --tests deltafs --skipreads \
---extraopts '--cpu-freq=$freq --cpus-per-task=$(( 2**(3-$r) )) --cpu-bind=cores --mem-bind=map_mem:0x0' \
+--extraopts '--cpu-freq=$freq --cpu-bind=cores --mem-bind=map_mem:0x0' \
 --env XX_IGNORE_DIRS=fields:hydro:rundata:names \
 --env XX_SKIP_SAMP=1 \
 --env XX_SKIP_SORT=1 \
