@@ -2,7 +2,7 @@
 
 # These are Haswell, weak-sclaing, shuffle-only runs.
 
-for freq in 2300000 1700000 1300000; do
+for freq in 2301000 2300000 1700000 1300000; do
 for r in 1 2 3; do
 
 std="--constraints haswell --experiment pd18h --iterations 1 \
