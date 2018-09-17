@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# There are strong-sclaing, shuffle-only runs.
+# These are strong-sclaing, shuffle-only runs.
 
 for r in 1 2 3; do
 
