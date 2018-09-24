@@ -2,7 +2,7 @@
 
 # multiple main threads
 
-for r in 1 2 3 4; do
+for r in 1 2 3 4 5; do
 
 std="--partition knl --constraints knl,quad,flat --experiment pd18d --iterations 1 \
 --overcommit disable --tag rc50-knl-nn-rxscaling --tests deltafs --skipreads \
