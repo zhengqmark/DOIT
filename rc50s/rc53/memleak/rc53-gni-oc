@@ -4,7 +4,7 @@ for dep in 16; do
 for r in 6; do
 
 std="--partition knl --constraints knl,quad,flat --experiment pd18x --iterations 1 \
---overcommit enable --tag rc53-knl-nn-u-memoryleaktest-gni-d${dep}-64k --tests deltafs --skipreads \
+--overcommit enable --tag rc53-knl-nn-u-memoryleaktest-gni-d${dep}-64k-oc --tests deltafs --skipreads \
 --extraopts '--cpu-bind=none --mem-bind=map_mem:0x0' \
 --env XX_IGNORE_DIRS=fields:hydro:rundata:names \
 --env XX_SKIP_SAMP=1 \
