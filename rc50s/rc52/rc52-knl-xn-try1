@@ -41,5 +41,6 @@ std="--partition knl --constraints knl,quad,flat --experiment pd18x --iterations
 eval ../vpicexpt_gen.pl ${std} --run $r --dw off .
 
 done
+done
 
 exit 0
