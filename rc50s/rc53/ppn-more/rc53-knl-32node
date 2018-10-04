@@ -2,8 +2,8 @@
 
 # These are KNL, ppn-sclaing, shuffle-only runs.
 
-for exp in pd18i pd18j; do
-for freq in 1401000 1400000 1300000 1200000; do
+for exp in pd18e; do
+for freq in 1401000; do
 for r in 1 2 3 4 5; do
 
 std="--partition knl --constraints knl,quad,flat --experiment $exp --iterations 1 \
