@@ -4,10 +4,10 @@ for exp in cs19b; do
 for r in 6; do
 
 std="--constraints haswell --experiment $exp --iterations 1 \
---overcommit enable --tag rc55-hsw-pdb-try1 --tests deltafs \
+--overcommit enable --tag rc55-hsw-pdb-try1 --tests deltafs --skipreads \
 --extraopts '--cpu-bind=cores' \
 --env XX_IGNORE_DIRS=fields:hydro:rundata:names \
---env XX_SKIP_SAMP=0 \
+--env XX_SKIP_SAMP=1 \
 --env XX_SKIP_PAPI=1 \
 --env XX_NO_PRE_FLUSH=0 \
 --env XX_NO_PRE_FLUSH_WAIT=0 \
@@ -30,7 +30,7 @@ std="--constraints haswell --experiment $exp --iterations 1 \
 --env 'VPIC_EMU=preload-runner' \
 --env 'VPIC_PRE='"
 
-eval ../vpicexpt_gen.pl ${std} --run $r --dw off .
+eval ../vpicexpt_gen.pl ${std} --run $r --dw bw .
 
 done
 done
