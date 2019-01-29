@@ -4,7 +4,7 @@ for exp in cs19b; do
 for r in 1 2 3 4 5 6; do
 
 std="--constraints haswell --experiment $exp --iterations 1 \
---overcommit enable --tag rc56-hsw-pdb-try2 --tests deltafs \
+--overcommit enable --tag rc56-hsw-pdb-try3 --tests deltafs \
 --extraopts '--cpu-bind=cores' \
 --env XX_IGNORE_DIRS=fields:hydro:rundata:names \
 --env XX_SKIP_SAMP=0 \

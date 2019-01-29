@@ -4,7 +4,7 @@ for exp in cs19a; do
 for r in 1 2 3 4 5 6; do
 
 std="--partition knl --constraints knl,quad,flat --experiment $exp --iterations 1 \
---overcommit enable --tag rc56-knl-pdb-try1 --tests deltafs \
+--overcommit enable --tag rc56-knl-pdb-try3 --tests deltafs \
 --extraopts '--cpu-bind=cores --mem-bind=map_mem:0x0' \
 --env XX_IGNORE_DIRS=fields:hydro:rundata:names \
 --env XX_SKIP_SAMP=0 \
