@@ -3,7 +3,7 @@
 # 3-hop
 
 for exp in cs19a; do
-for r in 6; do
+for r in 5 6 7 8; do
 
 std="--partition knl --constraints knl,quad,flat --experiment $exp --iterations 1 \
 --overcommit enable --tag rc57-knl-pdb-try11 --tests deltafs --skipreads \
