@@ -7,7 +7,7 @@ for m in 1 2 4 8; do
 for r in 6; do
 
 std="--partition knl --constraints knl,quad,flat --experiment $exp --iterations 1 \
---overcommit enable --tag rc57-knl-pdb-try7 --tests deltafs --skipreads \
+--overcommit enable --tag rc57-knl-pdb-try7-memtbl$m --tests deltafs --skipreads \
 --extraopts '--cpu-bind=cores --mem-bind=map_mem:0x0' \
 --env XX_IGNORE_DIRS=fields:hydro:rundata:names \
 --env XX_SKIP_SAMP=0 \
