@@ -4,7 +4,7 @@ for exp in cs19d; do
 for r in 1 6 7; do
 
 std="--partition knl --constraints knl,quad,flat --experiment $exp --iterations 1 \
---overcommit enable --tag rc58-knl-pdb-try1 --tests deltafs --skipreads \
+--overcommit enable --tag rc58-knl-pdb-try3 --tests deltafs --skipreads \
 --extraopts '--cpu-bind=none --mem-bind=map_mem:0x0' \
 --env XX_IGNORE_DIRS=fields:hydro:rundata:names \
 --env XX_SKIP_SAMP=0 \
@@ -26,6 +26,7 @@ std="--partition knl --constraints knl,quad,flat --experiment $exp --iterations 
 --env XX_PARTICLE_ID_SIZE=8 \
 --env XX_PARTICLE_SIZE=56 \
 --env XX_USE_PLAINDB=1 \
+--env XX_FMT_BLOOM=1 \
 --env XX_MEMTABLE_SIZE=16MiB \
 --env XX_BF_BITS=13 \
 --env XX_IMD_RATELIMIT=2794455 \

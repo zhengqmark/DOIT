@@ -1,10 +1,11 @@
 #!/bin/bash
 
 for exp in cs19d; do
-for r in 1 6 7; do
+for bw in 3725940 4471128 5588910 7451880; do
+for r in 6; do
 
 std="--partition knl --constraints knl,quad,flat --experiment $exp --iterations 1 \
---overcommit enable --tag rc58-knl-pdb-try1 --tests deltafs --skipreads \
+--overcommit enable --tag rc58-knl-pdb-try4-$bw --tests deltafs --skipreads \
 --extraopts '--cpu-bind=none --mem-bind=map_mem:0x0' \
 --env XX_IGNORE_DIRS=fields:hydro:rundata:names \
 --env XX_SKIP_SAMP=0 \
@@ -26,15 +27,17 @@ std="--partition knl --constraints knl,quad,flat --experiment $exp --iterations 
 --env XX_PARTICLE_ID_SIZE=8 \
 --env XX_PARTICLE_SIZE=56 \
 --env XX_USE_PLAINDB=1 \
+--env XX_FMT_BLOOM=1 \
 --env XX_MEMTABLE_SIZE=16MiB \
 --env XX_BF_BITS=13 \
---env XX_IMD_RATELIMIT=2794455 \
+--env XX_IMD_RATELIMIT=$bw \
 --env 'VPIC_EMU_OPTS=-t 7200' \
 --env 'VPIC_EMU=preload-runner' \
 --env 'VPIC_PRE='"
 
 eval ../vpicexpt_gen.pl ${std} --run $r --dw bw .
 
+done
 done
 done
 
