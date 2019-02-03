@@ -15,6 +15,7 @@ std="--partition knl --constraints knl,quad,flat --experiment $exp --iterations 
 --env XX_NO_PRE_FLUSH_SYNC=0 \
 --env XX_BG_PAUSE=1 \
 --env XX_SH_THREE_HOP=1 \
+--env MPICH_GNI_NDREG_ENTRIES=1024 \
 --env XX_HG_PROTO=ofi+gni \
 --env XX_ALWAYS_SHUFFLE=1 \
 --env XX_RPC_RANDOM_FLUSH=1 \
