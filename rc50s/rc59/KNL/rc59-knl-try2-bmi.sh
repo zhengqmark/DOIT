@@ -5,7 +5,7 @@ for bw  in 2794455 3725940 4471128 5588910; do
 for r   in 1 6 7; do
 
 std="--partition knl --constraints knl,quad,flat --experiment $exp --iterations 1 \
---overcommit enable --tag rc59-knl-pdb-try2-$bw --tests deltafs \
+--overcommit enable --tag rc59-knl-pdb-try2-$bw-bmi --tests deltafs \
 --extraopts '--cpu-bind=none --mem-bind=map_mem:0x0' \
 --env XX_IGNORE_DIRS=fields:hydro:rundata:names \
 --env XX_SKIP_SAMP=0 \
