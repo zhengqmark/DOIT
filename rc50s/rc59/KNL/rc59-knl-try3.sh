@@ -32,6 +32,7 @@ std="--partition knl --constraints knl,quad,flat --experiment $exp --iterations 
 --env XX_MEMTABLE_SIZE=16MiB \
 --env XX_BF_BITS=13 \
 --env XX_IMD_RATELIMIT=$bw \
+--env XX_IMD_SERIALIO=1 \
 --env 'VPIC_EMU_OPTS=-t 7200' \
 --env 'VPIC_EMU=preload-runner' \
 --env 'VPIC_PRE='"
