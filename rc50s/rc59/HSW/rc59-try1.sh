@@ -4,7 +4,7 @@ for exp in cs19b; do
 for bw  in 2794455 3725940 4471128 5588910 7451880; do
 for r   in 6; do
 
-std="--partition haswell --experiment $exp --iterations 1 \
+std="--experiment $exp --iterations 1 \
 --overcommit enable --tag rc59-pdb-try1-$bw --tests deltafs --skipreads \
 --extraopts '--cpu-bind=none' \
 --env XX_IGNORE_DIRS=fields:hydro:rundata:names \
