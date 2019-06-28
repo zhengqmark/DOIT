@@ -9,7 +9,7 @@ module load craype-mic-knl
 module load PrgEnv-gnu
 module load cmake
 
-env CC=cc CXX=CC cmak -DCMAKE_PREFIX_PATH="$PAT_BUILD_PAPI_BASEDIR" \
+env CC=cc CXX=CC cmake -DCMAKE_PREFIX_PATH="$PAT_BUILD_PAPI_BASEDIR" \
 -DCMAKE_INSTALL_PREFIX=/users/ccranor/jun19/r67k \
 -DCMAKE_BUILD_TYPE=RelWithDebInfo \
 -DMERCURY_POST_LIMIT=OFF \
