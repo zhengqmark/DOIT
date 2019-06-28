@@ -3,9 +3,8 @@
 for exp in pd18e; do
 for r   in 4 5; do
 
-std="--experiment $exp --iterations 1 \
---overcommit enable --tag rc67-bdw-try1 --tests deltafs --skipreads \
---cpubind=none \
+std="--experiment $exp --iterations 1 --tag rc67-bdw-try1 --tests deltafs
+--skipreads --cpubind=none \
 --env XX_IGNORE_DIRS=fields:hydro:rundata:names \
 --env XX_SKIP_SAMP=1 \
 --env XX_SKIP_PAPI=1 \
